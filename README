@@ -1,0 +1,35 @@
+-- Mandelbrot Set Generator ---
+
+This program generate the Mandelbrot set given by Z = Z^2 + C and save the image to a TGA file.
+
+Usage: See code exmaples and datafiles. 
+
+Data file format:
+----------------
+
+The data file contains a Cmin - Cmax "window" definition and some different parameters explained below. All
+ data is written on a single line following the format below:
+
+C_Real_Min    C_Img_Min  C_Real_Max  C_Img_Max  Iterations  ShiftFactor  ColorDetail  ColorMask   ColorTable
+-0.7474       -0.7466    0.10694     0.10806    2000        11           100          16#660055#  1
+
+Limits:
+
+C_Real_Min      : C lower limit
+C_Img_Min       : C lower limit
+C_Real_Max      : C upper limit
+C_Img_Max       : C upper limit
+
+Parameters:
+
+Iterations      : Number of iterations
+ShiftFactor     : Set the "Base color" when color map is not used. 1 => Blue, 8 => Green, 16 => Red. 
+                  Values between these gives a mix
+ColorDetail     : Detail in color tones when no color map is used. Higher value => more tones
+ColorMask       : A fixed base color value given as a 24 bit RGB hexnumber as:  16#RRGGBB#  
+ColorTable(0/1) : Select 8 bit (256 color) color table. Selected by a 1. Not Selected by a 0.
+                 If selected ShiftFactor, ColorDetail and ColorMask values are ignored.
+
+
+NOTE: The Targa Library Ada is needed e.g the files Tga_lib.adb and Tga_Lib.ads need to be in the same directory as
+the sources for Mandelbrot Set.
