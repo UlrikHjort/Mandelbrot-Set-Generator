@@ -30,16 +30,16 @@ with Interfaces; use Interfaces;
 package body Mandelbrot_Set is
 
    C_Real_Min : Float := 0.0;
-   C_Img_Min : Float := 0.0;
+   C_Img_Min  : Float := 0.0;
    C_Real_Max : Float := 0.0;
-   C_Img_Max : Float := 0.0;
+   C_Img_Max  : Float := 0.0;
 
    Iterations : Positive := 1;
 
    UseColorMap : Boolean     := False;
-   ShiftFactor : Positive    := 8;
-   ColorMask   : Unsigned_32 := 16#880000#;
-   ColorDetail : Positive    := 10;
+   ShiftFactor : Positive    := 1;
+   ColorMask   : Unsigned_32 := 16#000000#;
+   ColorDetail : Positive    := 1;
 
 
    ----------------------------------------------------------
@@ -101,7 +101,7 @@ package body Mandelbrot_Set is
      Z_Real,
      Z_Img,
      Z_Real_Tmp,
-     Z_Img_Tmp     : Float      := 0.0;
+     Z_Img_Tmp    : Float       := 0.0;
 
      Print_Color  : Boolean     := False;
      Color        : Unsigned_24 := 0;
@@ -121,8 +121,8 @@ package body Mandelbrot_Set is
         for Width in 1 .. Image_Width loop
 
             Print_Color := False;
-            Z_Real := 0.0;
-            Z_Img := 0.0;
+            Z_Real      := 0.0;
+            Z_Img       := 0.0;
 
             Inner_Loop:
             for Iteration in 1 .. Iterations loop
