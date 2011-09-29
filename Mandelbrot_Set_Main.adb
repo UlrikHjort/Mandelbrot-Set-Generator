@@ -32,4 +32,6 @@ begin
  Generate("./data/Mandel2", 640,480);
  Generate("./data/Mandel3", 640,480);
  Generate("./data/Mandel4", 640,480);
+ Generate("./data/Mandel5", 640,480);
+ Generate("./data/Mandel6", 640,480);
 end Mandelbrot_Set_Main;

@@ -22,14 +22,20 @@ C_Img_Max       : C upper limit
 
 Parameters:
 
-Iterations      : Number of iterations
-ShiftFactor     : Set the "Base color" when color map is not used. 1 => Blue, 8 => Green, 16 => Red. 
-                  Values between these gives a mix
-ColorDetail     : Detail in color tones when no color map is used. Higher value => more tones
-ColorMask       : A fixed base color value given as a 24 bit RGB hexnumber as:  16#RRGGBB#  
-ColorTable(0/1) : Select 8 bit (256 color) color table. Selected by a 1. Not Selected by a 0.
-                 If selected ShiftFactor, ColorDetail and ColorMask values are ignored.
+Iterations          : Number of iterations
+ShiftFactor         : Set the "Base color" when color map is not used. 1 => Blue, 8 => Green, 16 => Red. 
+                      Values between these gives a mix
+ColorDetail         : Detail in color tones when no color map is used. Higher value => more tones
+ColorMask           : A fixed base color value given as a 24 bit RGB hexnumber as:  16#RRGGBB#  
+ColorTable(0/1/2/3) : Select Color table: 
+
+                         0 : None (Use ShiftFactor, ColorDetail and ColorMask to generate color table)
+                         1 : Use 8 bit (256 color) defined color table. 
+                         2 : Use Black and White color map
+                         3 : Uee Inverse BW color map
+
+                      If 1,2 0r 3 is selected then ShiftFactor, ColorDetail and ColorMask values are ignored.
 
 
-NOTE: The Targa Library Ada is needed e.g the files Tga_lib.adb and Tga_Lib.ads need to be in the same directory as
+***** NOTE: The Targa Library Ada is needed e.g the files Tga_lib.adb and Tga_Lib.ads need to be in the same directory as
 the sources for Mandelbrot Set.

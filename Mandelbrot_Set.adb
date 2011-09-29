@@ -36,11 +36,15 @@ package body Mandelbrot_Set is
 
    Iterations : Positive := 1;
 
-   UseColorMap : Boolean     := False;
+   UseColorMap    : Boolean     := False;
+   UseColorMap_BW : Boolean     := False;
+
    ShiftFactor : Positive    := 1;
    ColorMask   : Unsigned_32 := 16#000000#;
    ColorDetail : Positive    := 1;
 
+   BaseColor          : Unsigned_24 := 16#000000#;
+   BaseColorInverse   : Unsigned_24 := 16#000000#;
 
    ----------------------------------------------------------
    -- Read the data set from the file Filename containing the
@@ -53,6 +57,12 @@ package body Mandelbrot_Set is
       Color_Map_Flag : Integer := 0;
 
    begin
+
+      UseColorMap      := False;
+      UseColorMap_BW   := False;
+      BaseColor        := 16#000000#;
+      BaseColorInverse := 16#FFFFFF#;
+
       Open(Data_File, In_File, Filename);
 
       while not End_Of_File(Data_File) loop
@@ -70,8 +80,14 @@ package body Mandelbrot_Set is
             ColorMask := Unsigned_32(Mask);
             Get(Data_File, Color_Map_Flag);
 
-            if Color_Map_Flag = 1 then
+            if Color_Map_Flag = 1 then -- Use 8 bit defined color map
                UseColorMap := True;
+            elsif Color_Map_Flag = 2 then -- Use BW color map
+               UseColorMap_BW := True;
+            elsif Color_Map_Flag = 3 then -- Use Inverse BW color map
+               UseColorMap_BW := True;
+               BaseColor        := 16#FFFFFF#;
+               BaseColorInverse := 16#000000#;
             else
                UseColorMap := False;
             end if;
@@ -134,13 +150,15 @@ package body Mandelbrot_Set is
                if ((Z_Real ** 2) - (Z_Img ** 2) > 4.0) then
                   Print_Color := True;
 
+
                   if UseColorMap then
                      ByteColor := Unsigned_8(Iterations/256) * Unsigned_8(Iteration mod 256);
                      Color := ColorMap(Positive((Iteration mod 255)+1));
+                  elsif UseColorMap_BW then
+                   Color := BaseColorInverse;
                   else
                      Color := Unsigned_24((Shift_Left(Unsigned_32(Iteration *ColorDetail),shiftFactor) mod (2 ** 24-1)) or ColorMask);
                   end if;
-
                end if;
              exit Inner_Loop When Print_Color;
             end loop Inner_Loop;
@@ -148,7 +166,7 @@ package body Mandelbrot_Set is
             if Print_Color then
               Insert_Point(Tga_Buffer,Height,Width,Color);
             else
-              Insert_Point(Tga_Buffer,Height,Width,16#000000#);
+              Insert_Point(Tga_Buffer,Height,Width,BaseColor);
             end if;
             C_Real := C_Real + C_Real_Step;
         end loop;
