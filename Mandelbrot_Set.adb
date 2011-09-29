@@ -48,9 +48,9 @@ package body Mandelbrot_Set is
    ----------------------------------------------------------
    Procedure Read_Data(Filename : String) is
 
-      Data_File  : FILE_TYPE;
-      Mask       : Integer;
-      Color_Map_Flag    : Integer := 3;
+      Data_File      : FILE_TYPE;
+      Mask           : Integer;
+      Color_Map_Flag : Integer := 0;
 
    begin
       Open(Data_File, In_File, Filename);
