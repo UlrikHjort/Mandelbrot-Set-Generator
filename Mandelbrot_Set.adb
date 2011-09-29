@@ -105,7 +105,7 @@ package body Mandelbrot_Set is
 
      Print_Color  : Boolean     := False;
      Color        : Unsigned_24 := 0;
-     ByteColor    : Unsigned_8  :=0;
+     ByteColor    : Unsigned_8  := 0;
 
    begin
      Read_Data(Filename & ".dat");
